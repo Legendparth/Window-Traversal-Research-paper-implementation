@@ -8,6 +8,20 @@
   <license>TODO: License declaration</license>
 
   <depend>rclpy</depend>
+  <depend>launch</depend>
+  <depend>ament_index_python</depend>
+  <depend>px4_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>sensor_msgs</depend>
+  <depend>std_msgs</depend>
+  <depend>nav_msgs</depend>
+  <depend>numpy</depend>
+  <depend>math</depend>
+  <depend>mavros_msgs</depend>
+  <depend>image_transport</depend>
+  <depend>tf2_ros</depend>
+  <depend>tf_transformations</depend>
+
 
   <test_depend>ament_copyright</test_depend>
   <test_depend>ament_flake8</test_depend>
