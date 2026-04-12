@@ -13,7 +13,7 @@ def generate_launch_description():
     px4_command = (
         f'cd {PX4_AUTOPILOT_DIR} && '
         'export GZ_SIM_RESOURCE_PATH=$GZ_SIM_RESOURCE_PATH:$(pwd)/Tools/simulation/gz/models && '
-        'PX4_GZ_WORLD=imav2026_scaled PX4_GZ_MODEL_POSE="0,-6.5,0" make px4_sitl gz_x500_depth'
+        'PX4_GZ_WORLD=imav2026_scaled PX4_GZ_MODEL_POSE="0,5,0" make px4_sitl gz_x500_depth'
     )
     px4_sitl = ExecuteProcess(
         cmd=[TERMINAL, '--title="PX4 SITL"', '--', 'bash', '-c', px4_command],
@@ -37,11 +37,19 @@ def generate_launch_description():
     gz_bridge_cmd = (
         'ros2 run ros_gz_bridge parameter_bridge '
         '/world/imav2026_scaled/model/x500_depth_0/link/camera_link/sensor/IMX214/image@sensor_msgs/msg/Image[gz.msgs.Image '
+        '/depth_camera@sensor_msgs/msg/Image[gz.msgs.Image'
     )
     ros_gz_bridge = ExecuteProcess(
         cmd=[TERMINAL, '--title="ROS GZ Bridge"', '--', 'bash', '-c', gz_bridge_cmd],
         output='log',
         name='ros_gz_bridge'
+    )
+
+    drone_joy_node_cmd = 'ros2 run joy joy_node'
+    drone_joy_node = ExecuteProcess(
+        cmd=[TERMINAL, '--title="Joystick Node"', '--', 'bash', '-c', drone_joy_node_cmd],
+        output='log',
+        name='drone_joy_node'
     )
 
     drone_control_cmd = 'ros2 run imav_indoor_2026 drone_joystick_cam'
@@ -58,5 +66,6 @@ def generate_launch_description():
         microxcre_agent,
         qgc_launch,
         ros_gz_bridge,
+        drone_joy_node,
         drone_control,
     ])
