@@ -35,29 +35,29 @@ To translate raw sensor readings into autonomous actions, the following mathemat
 
 ### Window Corner Projection (Body Frame)
 Given a depth reading $R$ and camera bearing angles $\theta_x$ and $\theta_y$, the corner coordinates in the Body Frame ($[x_b, y_b, z_b]$) are calculated as:
-$$ x_b = R $$
-$$ y_b = R \cdot \tan(\theta_x) $$
-$$ z_b = -R \cdot \tan(\theta_y) $$
+$ x_b = R $
+$ y_b = R \cdot \tan(\theta_x) $
+$ z_b = -R \cdot \tan(\theta_y) $
 These values represent the Forward-Right-Down standard frame, taking into account any physical camera offsets.
 
 ### Quaternion Rotation to NED Frame
 To accurately map the corners into the drone's global NED frame, a quaternion rotation is performed using the helper class `Quaternions`. A vector in the body frame $\mathbf{v}_b$ is rotated to the NED frame $\mathbf{v}_{ned}$ using the drone's orientation quaternion $\mathbf{q}$:
-$$ \mathbf{\hat{v}}_{ned} = \mathbf{q} \otimes [0, \mathbf{v}_b] \otimes \mathbf{q}^{-1} $$
-$$ \text{Target Position} = \mathbf{\hat{v}}_{ned} + \text{Drone Position} $$
+$ \mathbf{\hat{v}}_{ned} = \mathbf{q} \otimes [0, \mathbf{v}_b] \otimes \mathbf{q}^{-1} $
+$ \text{Target Position} = \mathbf{\hat{v}}_{ned} + \text{Drone Position} $
 
 ### Frame Validation
 Before committing to the window target, the vectors formed by the window edges are verified to check if they form a valid plane and rectangle shape using dot and cross products:
-$$ \text{Cross Products Check: } \mathbf{v}_{1,2} \times \mathbf{v}_{3,4} \approx 0 $$
-$$ \text{Dot Products Check: } \mathbf{v}_{1,2} \cdot \mathbf{v}_{2,3} \approx 0 $$
+$ \text{Cross Products Check: } \mathbf{v}_{1,2} \times \mathbf{v}_{3,4} \approx 0 $
+$ \text{Dot Products Check: } \mathbf{v}_{1,2} \cdot \mathbf{v}_{2,3} \approx 0 $
 
 ### Bearing Angles and Trajectory Velocities
 The positions of the window corners projected onto the target World Frame are used to calculate the elevation ($\alpha$) and azimuth ($\beta$) angles:
-$$ \alpha = \arcsin\left(\frac{p_z}{distance}\right) $$
-$$ \beta = \arctan2(p_y, p_x) $$
+$ \alpha = \arcsin\left(\frac{p_z}{distance}\right) $
+$ \beta = \arctan2(p_y, p_x) $
 From these, bisector angles and elliptical offsets ($S_\gamma$, $S_\chi$) determine the desired path angles $\gamma_{des}$ and $\chi_{des}$, driving the velocity references:
-$$ v_{xw} = V_{traverse} \cdot \cos(\gamma_{des}) \cdot \cos(\chi_{des}) $$
-$$ v_{yw} = V_{traverse} \cdot \cos(\gamma_{des}) \cdot \sin(\chi_{des}) $$
-$$ v_{zw} = V_{traverse} \cdot \sin(\gamma_{des}) $$
+$ v_{xw} = V_{traverse} \cdot \cos(\gamma_{des}) \cdot \cos(\chi_{des}) $
+$ v_{yw} = V_{traverse} \cdot \cos(\gamma_{des}) \cdot \sin(\chi_{des}) $
+$ v_{zw} = V_{traverse} \cdot \sin(\gamma_{des}) $
 
 ## Key Features
 - **PX4 Offboard Control Interface:** Uses `px4_msgs` over micro-ROS/DDS to command `TrajectorySetpoint`.
