@@ -43,7 +43,7 @@ $$z_b = -R \cdot \tan(\theta_y)$$
 These values represent the Forward-Right-Down standard frame, taking into account any physical camera offsets.
 
 ### Quaternion Rotation to NED Frame
-To accurately map the corners into the drone's global NED frame, a quaternion rotation is performed using the helper class `Quaternions`. A vector in the body frame $\mathbf{v}_b$ is rotated to the NED frame $\mathbf{v}_{ned}$ using the drone's orientation quaternion $\mathbf{q}$:
+To accurately map the corners into the drone's global NED frame, a quaternion rotation is performed using the helper class `Quaternions`. A vector in the body frame $v_b$ is rotated to the NED frame $v_{ned}$ using the drone's orientation quaternion $\mathbf{q}$:
 
 $$\mathbf{\hat{v}}_{ned} = \mathbf{q} \otimes [0, \mathbf{v}_b] \otimes \mathbf{q}^{-1}$$
 $$\text{Target Position} = \mathbf{\hat{v}}_{ned} + \text{Drone Position}$$
