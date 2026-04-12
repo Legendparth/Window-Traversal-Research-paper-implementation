@@ -58,7 +58,7 @@ $$\text{Dot Products Check: } \mathbf{v}_{1,2} \cdot \mathbf{v}_{2,3} \approx 0$
 The positions of the window corners projected onto the target World Frame are used to calculate the elevation ($\alpha$) and azimuth ($\beta$) angles:
 
 $$\alpha = \arcsin\left(\frac{p_z}{\text{distance}}\right)$$
-$$\beta = \operatorname{atan2}(p_y, p_x)$$
+$$\beta = \arctan\left(\frac{p_y}{p_x}\right)$$
 
 From these, bisector angles and elliptical offsets ($S_\gamma$, $S_\chi$) determine the desired path angles $\gamma_{des}$ and $\chi_{des}$, driving the velocity references:
 
