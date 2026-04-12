@@ -26,7 +26,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'drone_joystick_cam = imav_indoor_2026.drone_joystick_cam:main',
+            'window_traversal = imav_indoor_2026.window_traversal:main',
         ],
     },
 )
