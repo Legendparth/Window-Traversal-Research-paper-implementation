@@ -1,3 +1,7 @@
+
+
+https://github.com/user-attachments/assets/29b04127-0783-48b8-81fe-9131cf681a4e
+
 # Window Traversal Path Planning for Quadrotors
 
 This repository contains the ongoing implementation of the window traversal path planning algorithm, inspired by the research paper by **Ashwini Ratoo and Midhun E K** on *Quadrotor Guidance for Window Traversal: A Bearings-Only Approach*. 
